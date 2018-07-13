@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 跟标签 namespace： -->
+<mapper namespace="com.fbzs.mapper.UserMapper">
+	<!-- 声明一个resultMap id:唯一的，通过该id来引用该resultMap type:pojo的类型 -->
+	<resultMap type="user" id="userResultMap">
+		<!-- 配置主键 column:数据库字段 property：user的属性 -->
+		<id column="uid" property="uid" />
+		<result column="uname" property="uname" />
+		<result column="upwd" property="upwd" />
+		<result column="utel" property="utel" />
+		<result column="birthday" property="birthday" />
+		<result column="identity" property="identity" />
+		<result column="email" property="email" />
+		<result column="sex" property="sex" />
+		<result column="address" property="address" />
+		<result column="uflag" property="uflag" />
+		<result column="homestay_address" property="homestay_address" />
+		<result column="homestay_capacity" property="homestay_capacity" />
+		<result column="story" property="story" />
+	</resultMap>
+
+	<!-- 查询用户  login(登陆)&checkName(用户名查重) -->
+	<select id="queryUser" resultMap="userResultMap">
+		select * from user 
+		<where>
+		<if test="uid!=null and uid!=''">and uid = #{uid}</if>
+		<if test="uname!=null and uname!=''">and uname = #{uname}</if>
+	    <if test="upwd!=null and upwd!=''">and upwd = #{upwd}</if>
+	    <if test="story!=null and story!=''">and story = #{story}</if>
+		</where>
+	</select>
+
+	<!-- 查询所有 -->
+	<select id="showUsers" resultMap="userResultMap">
+		select * from user
+	</select>
+
+	<!-- 用户名模糊查询 -->
+	<select id="showUsersByName" resultMap="userResultMap">
+		select * from user where
+		username like "%"#{username}"%"
+	</select>
+
+	<!-- 添加用户 INSERT INTO `fbzs`.`user`(`uid`,`uname`,`upwd`,`utel`,`birthday`,`identity`,`email`,`sex`,`address`) VALUES ( '2','xc',NULL,NULL,NULL,NULL,NULL,NULL,NULL); -->
+	<insert id="insertUser" parameterType="com.fbzs.pojo.User">
+		insert into user
+		(uid,uname,upwd,utel,birthday,identity,email,sex,address,uflag,homestay_address,homestay_capacity,story)
+		values (#{uid,jdbcType=VARCHAR}, #{uname,jdbcType=VARCHAR},
+		#{upwd,jdbcType=VARCHAR}, #{utel,jdbcType=VARCHAR},
+		#{birthday,jdbcType=TIMESTAMP},#{identity,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR},
+		#{address,jdbcType=VARCHAR}, #{uflag,jdbcType=INTEGER},
+		#{homestay_address,jdbcType=VARCHAR}, #{homestay_capacity,jdbcType=INTEGER},
+		#{story,jdbcType=VARCHAR})
+	</insert>
+
+	<!-- 修改用户 -->
+	<update id="updataUser" parameterType="com.fbzs.pojo.User">
+		update user
+		<set>
+		<if test="uname!=null and uname!=''">uname=#{uname,jdbcType=VARCHAR},</if>
+		<if test="upwd!=null and upwd!=''">upwd=#{upwd,jdbcType=VARCHAR},</if>
+		<if test="utel!=null and utel!=''">utel=#{utel,jdbcType=VARCHAR},</if>
+		<if test="birthday!=null">birthday=#{birthday,jdbcType=TIMESTAMP},</if>
+		<if test="identity!=null and identity!=''">identity=#{identity,jdbcType=VARCHAR},</if>
+		<if test="email!=null and email!=''">email=#{email,jdbcType=VARCHAR},</if>
+		<if test="sex!=null and sex!=''">sex=#{sex,jdbcType=VARCHAR},</if>
+		<if test="address!=null and address!=''">address=#{address,jdbcType=VARCHAR},</if>
+		<if test="uflag!=null and uflag!=''">uflag=#{uflag,jdbcType=INTEGER},</if>
+		<if test="homestay_address!=null and homestay_address!=''">homestay_address=#{homestay_address,jdbcType=VARCHAR},</if>
+		<if test="homestay_capacity!=null and homestay_capacity!=''">homestay_capacity=#{homestay_capacity,jdbcType=INTEGER},</if>
+		<if test="address!=story and address!=''">address=#{story,jdbcType=VARCHAR},</if>
+		</set>
+		where uid = #{uid,jdbcType=VARCHAR}
+	</update>
+	
+</mapper>

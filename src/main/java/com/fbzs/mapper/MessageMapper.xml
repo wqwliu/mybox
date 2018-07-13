@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbzs.mapper.MessageMapper">
+   <resultMap type="message" id="messageResultMap">
+		<!-- 配置主键 column:数据库字段 property：user的属性 -->
+		<id column="mid" property="mid" />
+		<result column="leave_message" property="leave_message" />
+		<result column="uid" property="uid" />
+	</resultMap>
+	
+ <select id="queryMessageById" resultMap="messageResultMap">
+		select * from message where uid = #{uid}
+ </select>
+
+</mapper>

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fbzs.mapper.RoominfoMapper" >
+  <resultMap id="BaseResultMap" type="com.fbzs.pojo.Roominfo" >
+    <id column="roomId" property="roomid" jdbcType="VARCHAR" />
+    <result column="roomName" property="roomname" jdbcType="VARCHAR" />
+    <result column="roomSize" property="roomsize" jdbcType="INTEGER" />
+    <result column="roomImage" property="roomimage" jdbcType="VARCHAR" />
+    <result column="bedNum" property="bednum" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="roomNum" property="roomnum" jdbcType="INTEGER" />
+    <result column="pNum" property="pnum" jdbcType="INTEGER" />
+    <result column="roomPedc" property="roompedc" jdbcType="VARCHAR" />
+    <result column="flg" property="flg" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    roomId, roomName, roomSize, roomImage, bedNum, price, roomNum, pNum, roomPedc, flg, 
+    uid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fbzs.pojo.RoominfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from roominfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from roominfo
+    where roomId = #{roomid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from roominfo
+    where roomId = #{roomid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fbzs.pojo.RoominfoExample" >
+    delete from roominfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fbzs.pojo.Roominfo" >
+    insert into roominfo (roomId, roomName, roomSize, 
+      roomImage, bedNum, price, 
+      roomNum, pNum, roomPedc, 
+      flg, uid)
+    values (#{roomid,jdbcType=VARCHAR}, #{roomname,jdbcType=VARCHAR}, #{roomsize,jdbcType=INTEGER}, 
+      #{roomimage,jdbcType=VARCHAR}, #{bednum,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, 
+      #{roomnum,jdbcType=INTEGER}, #{pnum,jdbcType=INTEGER}, #{roompedc,jdbcType=VARCHAR}, 
+      #{flg,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fbzs.pojo.Roominfo" >
+    insert into roominfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roomid != null" >
+        roomId,
+      </if>
+      <if test="roomname != null" >
+        roomName,
+      </if>
+      <if test="roomsize != null" >
+        roomSize,
+      </if>
+      <if test="roomimage != null" >
+        roomImage,
+      </if>
+      <if test="bednum != null" >
+        bedNum,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="roomnum != null" >
+        roomNum,
+      </if>
+      <if test="pnum != null" >
+        pNum,
+      </if>
+      <if test="roompedc != null" >
+        roomPedc,
+      </if>
+      <if test="flg != null" >
+        flg,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roomid != null" >
+        #{roomid,jdbcType=VARCHAR},
+      </if>
+      <if test="roomname != null" >
+        #{roomname,jdbcType=VARCHAR},
+      </if>
+      <if test="roomsize != null" >
+        #{roomsize,jdbcType=INTEGER},
+      </if>
+      <if test="roomimage != null" >
+        #{roomimage,jdbcType=VARCHAR},
+      </if>
+      <if test="bednum != null" >
+        #{bednum,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="roomnum != null" >
+        #{roomnum,jdbcType=INTEGER},
+      </if>
+      <if test="pnum != null" >
+        #{pnum,jdbcType=INTEGER},
+      </if>
+      <if test="roompedc != null" >
+        #{roompedc,jdbcType=VARCHAR},
+      </if>
+      <if test="flg != null" >
+        #{flg,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fbzs.pojo.RoominfoExample" resultType="java.lang.Integer" >
+    select count(*) from roominfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update roominfo
+    <set >
+      <if test="record.roomid != null" >
+        roomId = #{record.roomid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomname != null" >
+        roomName = #{record.roomname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomsize != null" >
+        roomSize = #{record.roomsize,jdbcType=INTEGER},
+      </if>
+      <if test="record.roomimage != null" >
+        roomImage = #{record.roomimage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bednum != null" >
+        bedNum = #{record.bednum,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.roomnum != null" >
+        roomNum = #{record.roomnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.pnum != null" >
+        pNum = #{record.pnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.roompedc != null" >
+        roomPedc = #{record.roompedc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flg != null" >
+        flg = #{record.flg,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update roominfo
+    set roomId = #{record.roomid,jdbcType=VARCHAR},
+      roomName = #{record.roomname,jdbcType=VARCHAR},
+      roomSize = #{record.roomsize,jdbcType=INTEGER},
+      roomImage = #{record.roomimage,jdbcType=VARCHAR},
+      bedNum = #{record.bednum,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DOUBLE},
+      roomNum = #{record.roomnum,jdbcType=INTEGER},
+      pNum = #{record.pnum,jdbcType=INTEGER},
+      roomPedc = #{record.roompedc,jdbcType=VARCHAR},
+      flg = #{record.flg,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fbzs.pojo.Roominfo" >
+    update roominfo
+    <set >
+      <if test="roomname != null" >
+        roomName = #{roomname,jdbcType=VARCHAR},
+      </if>
+      <if test="roomsize != null" >
+        roomSize = #{roomsize,jdbcType=INTEGER},
+      </if>
+      <if test="roomimage != null" >
+        roomImage = #{roomimage,jdbcType=VARCHAR},
+      </if>
+      <if test="bednum != null" >
+        bedNum = #{bednum,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="roomnum != null" >
+        roomNum = #{roomnum,jdbcType=INTEGER},
+      </if>
+      <if test="pnum != null" >
+        pNum = #{pnum,jdbcType=INTEGER},
+      </if>
+      <if test="roompedc != null" >
+        roomPedc = #{roompedc,jdbcType=VARCHAR},
+      </if>
+      <if test="flg != null" >
+        flg = #{flg,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where roomId = #{roomid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fbzs.pojo.Roominfo" >
+    update roominfo
+    set roomName = #{roomname,jdbcType=VARCHAR},
+      roomSize = #{roomsize,jdbcType=INTEGER},
+      roomImage = #{roomimage,jdbcType=VARCHAR},
+      bedNum = #{bednum,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
+      roomNum = #{roomnum,jdbcType=INTEGER},
+      pNum = #{pnum,jdbcType=INTEGER},
+      roomPedc = #{roompedc,jdbcType=VARCHAR},
+      flg = #{flg,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=VARCHAR}
+    where roomId = #{roomid,jdbcType=VARCHAR}
+  </update>
+</mapper>
